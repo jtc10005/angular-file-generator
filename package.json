@@ -1,5 +1,5 @@
 {
-    "name": "afg",
+    "name": "angular-file-generator",
     "displayName": "angular-file-generator",
     "description": "generate angular 2+ files similar to CLI",
     "version": "0.0.1",
@@ -11,14 +11,34 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:extension.ngGenerate"
     ],
     "main": "./out/extension",
     "contributes": {
-        "commands": [{
-            "command": "extension.sayHello",
-            "title": "Hello World"
-        }]
+        "keybindings": [
+            {
+                "command": "extension.ngGenerate",
+                "key": "ctrl+alt+g",
+                "mac": "cmd+alt+g",
+                "when": "editorTextFocus"
+            }
+        ],
+        "commands": [
+            {
+                "command": "extension.ngGenerate",
+                "title": "Generate Angular Component",
+                "category": "Angular Generate"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "when": "explorerResourceIsFolder",
+                    "command": "extension.ngGenerate",
+                    "group": "ngGenerateGroup@1"
+                }
+            ]
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
