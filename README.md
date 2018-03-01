@@ -37,3 +37,7 @@ This extension contributes the following settings:
  ### 0.0.1 - Inital Release
 
 -----------------------------------------------------------------------------------------------------------
+
+# Credits:
+I found/learned alot from:
+[stef-levesque/vscode-hexdump](https://github.com/stef-levesque/vscode-hexdump)
