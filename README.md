@@ -1,6 +1,5 @@
 # angular-file-generator README
-
-This is the README for your extension "angular-file-generator". After writing up a brief description, we recommend including the following sections.
+![Imgur](https://i.imgur.com/Ho9QR0n.png)
 
 ## Features
 
@@ -43,4 +42,4 @@ This extension contributes the following settings:
 
 # Credits:
 I found/learned alot from:
-[stef-levesque/vscode-hexdump](https://github.com/stef-levesque/vscode-hexdump)
+[stef-levesque/vscode-hexdump](https://github.com/stef-levesque/vscode-hexdump)!
