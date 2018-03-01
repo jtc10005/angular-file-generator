@@ -16,13 +16,15 @@ export function activate(context: ExtensionContext) {
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
-    let modulePath = '';
-    let styleType = 'css';
-    
-    let disposable = Commands.registerCommand('extension.ngGenerate', async (fileUri) => {
-        console.log(fileUri);
-        getConfig(fileUri.fsPath)
 
+
+    let disposable = Commands.registerCommand('extension.ngGenerate', async (fileUri) => {
+
+
+        let modulePath = getModule(fileUri.fsPath);
+
+
+        let styleType = getStyle(fileUri.fsPath)
         let Name = '';
         let fn = await Window.showInputBox({ placeHolder: 'name-component', prompt: 'Enter new component name.' });
         if (fn) {
@@ -42,7 +44,7 @@ export function activate(context: ExtensionContext) {
         });
         //generate scss
         //TODO loop through files in folder for style files and use that extension
-        if (this.styleType != '') {
+        if (this.styleType && this.styleType != '') {
             await fs.writeFile(fileUri.fsPath + '\\' + Name + this.styleType, '', (err) => {
                 console.log('err', err);
             });
@@ -51,34 +53,44 @@ export function activate(context: ExtensionContext) {
         //TODO loop through files and find parent module and add component to module
 
     });
-
-    function getConfig(path: string) {
+    function getModule(path: string): string {
+        let modulePath = '';
         fs.readdir(path, function (err, items) {
             console.log(items);
             items.forEach(fileName => {
-                let split = fileName.split('.');
-                if (this.styleType == '' && split[split.length] == 'css') {
-                    this.styleType = '.css';
-                }
-                if (this.styleType == '' && split[split.length] == 'scss') {
-                    this.styleType = '.scss';
-                }
-                if (this.styleType == '' && split[split.length] == 'sass') {
-                    this.styleType = '.sass';
-                }
-                if (this.modulePath == '' && fileName.indexOf('module') > 0) {
-                    this.modulePath = `${path}\\${fileName}.ts`;
+                if (modulePath == '' && fileName.indexOf('module') > 0) {
+                    modulePath = `${path}\\${fileName}.ts`;
+                    return modulePath;
                 }
             })
             //didn't find module
             if (this.modulePath == '') {
                 var the_arr = path.split('/');
                 the_arr.pop();
-                getConfig(the_arr.join('/'));
+                modulePath = getModule(the_arr.join('/'));
             }
-            // foreach( i in items) {
-            //     console.log(items[i]);
-            //     if(items[])
+        });
+        return modulePath;
+    }
+    function getStyle(path: string) {
+        return fs.readdir(path, function (err, items) {
+            return items.forEach(fileName => {
+                let split = fileName.split('.');
+                if (split[split.length - 1] == 'css') {
+                    return '.css';
+                }
+                if (split[split.length - 1] == 'scss') {
+                    return '.scss';
+                }
+                if (split[split.length - 1] == 'sass') {
+                    return '.sass';
+                }
+            })
+            //didn't find module
+            // if (this.modulePath == '') {
+            //     var the_arr = path.split('/');
+            //     the_arr.pop();
+            //     getConfig(the_arr.join('/'));
             // }
         });
 
