@@ -8,6 +8,11 @@
     "engines": {
         "vscode": "^1.20.0"
     },
+    "keywords": [
+        "Angular",
+        "Angular2+",
+        "Typescript"
+    ],
     "categories": [
         "Other"
     ],
@@ -26,7 +31,6 @@
         "menus": {
             "explorer/context": [
                 {
-                    "when": "explorerResourceIsFolder",
                     "command": "ngGenerate.component",
                     "group": "ngGenerateGroup@1"
                 }
