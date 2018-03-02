@@ -17,11 +17,17 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:ngGenerate.component"
+        "onCommand:ngGenerate.component",
+        "onCommand:ngGenerate.module"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
+            {
+                "command": "ngGenerate.module",
+                "title": "Generate Angular Module",
+                "category": "Ng Generate"
+            },
             {
                 "command": "ngGenerate.component",
                 "title": "Generate Angular Component",
@@ -32,6 +38,10 @@
             "explorer/context": [
                 {
                     "command": "ngGenerate.component",
+                    "group": "ngGenerateGroup@1"
+                },
+                {
+                    "command": "ngGenerate.module",
                     "group": "ngGenerateGroup@1"
                 }
             ]
@@ -45,11 +55,11 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
-        "tslint": "^5.8.0",
+        "@types/mocha": "^2.2.42",
         "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6"
     },
     "license": "MIT",
     "bugs": {
@@ -60,5 +70,8 @@
         "type": "git",
         "url": "https://github.com/jtc10005/angular-file-generator.git"
     },
-    "homepage": "https://github.com/jtc10005/angular-file-generator"
+    "homepage": "https://github.com/jtc10005/angular-file-generator",
+    "dependencies": {
+        "sanitize-filename": "^1.6.1"
+    }
 }

@@ -4,19 +4,58 @@
 import { workspace as Workspace, window as Window, ExtensionContext, TextDocument, OutputChannel, WorkspaceFolder, Uri, commands as Commands } from 'vscode';
 
 import * as fs from 'fs';
+import * as sanitize from 'sanitize-filename';
 
 
 export function activate(context: ExtensionContext) {
 
     console.log('Extension "angular-file-generator" activated');
 
-    let disposable = Commands.registerCommand('ngGenerate.component', async (fileUri) => {
+    let disposable = Commands.registerCommand('ngGenerate.module', async (fileUri) => {
+        let path = fileUri.fsPath;
+        // if path contains file name, need to remove this for the correct path
+        // this is only an issue if the scheme is a file
+        if (fs.lstatSync(path).isFile()) {
+            var the_arr = path.split('\\');
+            the_arr.pop();
+            path = the_arr.join('\\');
+        }
+
+        // if no path stop
+        if (!path || path == '') {
+            Window.showErrorMessage('No path located. Cannot continue.');
+            throw new Error('No path located. Cannot continue.');
+        }
+        // User input filename
+        let Name = '';
+        let fn = await Window.showInputBox({ placeHolder: 'name-component', prompt: 'Enter new module name.' });
+        if (fn) {
+            // append name of object to component if it does not already have it
+            // may need to break this out to a config setting
+            Name = sanitize(fn.indexOf('.module') > 0 ? fn : `${fn}.module`);
+            console.log('module name: ', Name);
+        } else {
+            // no file name enter, no continue
+            Window.showErrorMessage('No module name entered. Cannot generate file.');
+            throw new Error('No module name entered. Cannot continue.');
+        }
+
+        //generate module
+        await fs.writeFile(path + '\\' + Name + '.ts', generateModule(Name), (err) => {
+            console.log('err', err);
+        });
+        Window.showInformationMessage('Module generated.');
+    })
+
+    context.subscriptions.push(disposable);
+
+    disposable = Commands.registerCommand('ngGenerate.component', async (fileUri) => {
 
 
         let path = fileUri.fsPath;
         // if path contains file name, need to remove this for the correct path
         // this is only an issue if the scheme is a file
-        if (fileUri.scheme == "file") {
+        if (fs.lstatSync(path).isFile()) {
             var the_arr = path.split('\\');
             the_arr.pop();
             path = the_arr.join('\\');
@@ -40,7 +79,7 @@ export function activate(context: ExtensionContext) {
         if (fn) {
             // append name of object to component if it does not already have it
             // may need to break this out to a config setting
-            Name = fn.indexOf('.component') > 0 ? fn : `${fn}.component`;
+            Name = sanitize(fn.indexOf('.module') > 0 ? fn : `${fn}.module`);
             console.log('component name: ', Name);
         } else {
             // no file name enter, no continue
@@ -115,19 +154,14 @@ export function activate(context: ExtensionContext) {
             if (sty != '') {
                 return;
             }
-            // if (extension == 'css') {
-            //     sty = '.css';
-            //     return;
-            // }
-            // if (extension == 'scss') {
-            //     sty = '.scss';
-            //     return;
-            // }
-            // if (extension == 'sass') {
-            //     sty = '.sass';
-            //     return;
-            // }
+
         })
+
+        if (sty == '') {
+            var the_arr = path.split('/');
+            the_arr.pop();
+            sty = getStyle(the_arr.join('/'));
+        }
         return sty;
     }
 
@@ -163,6 +197,25 @@ constructor() {
 }`;
     }
 
+    /**
+     * Generate ts component file stuff
+     * @param fileName Name of the component being generated
+     */
+    function generateModule(fileName: String): string {
+        const selectorName = fileName.replace('.', '-');
+        const compName = fileName.split('.').map(x => x.charAt(0).toUpperCase() + x.substr(1).toLowerCase()).join('');
+
+        return `
+        import { NgModule } from '@angular/core';
+    
+        
+        @NgModule({
+          declarations: [],
+          imports: [],
+          providers: []
+        })
+        export class ${compName} { }`;
+    }
     context.subscriptions.push(disposable);
 }
 

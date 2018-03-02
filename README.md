@@ -3,7 +3,12 @@
 
 ## Features
 
-Generate angular 2+ files similar to CLI in vscode
+Generate angular 2+ files similar to CLI in vscode.
+From the explorer, right click on a folder or file and select "Generate Angular Component".
+A prompt will as you to enter a filename.
+Once you enter a filename, component html, ts and style files will be created at the location/level you select.
+
+Name entered will have the text .component added to it (if it does not already have it) as per Angular style.
 
 > ngGenerate.component
 
@@ -21,7 +26,6 @@ Generate angular 2+ files similar to CLI in vscode
 * None
 
 ## Work TBD:
-*Module Generation from explorer context menu
 *Service Generation from explorer context menu
 *Auto add generated files to module
 *hot keys to generate file from editor
@@ -31,6 +35,8 @@ Generate angular 2+ files similar to CLI in vscode
  ### 0.0.1 - Inital Release
  ### 0.0.2 - Added logo, and added readme category for work to be done
  ### 0.1.0 - Fixed style gneration, allow explorer context menu on file
+ ### 0.1.1 - Fixed style gneration if not on the same level as the file selected
+ ### 0.2.0 - Added Module Generation, filename sanitation, fixed the style creation (again...)
 
 -----------------------------------------------------------------------------------------------------------
 
