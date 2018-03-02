@@ -2,7 +2,8 @@
     "name": "angular-file-generator",
     "displayName": "angular-file-generator",
     "description": "generate angular 2+ files similar to CLI",
-    "version": "0.0.1",
+    "version": "0.0.2",
+    "icon": "images/logo.png",
     "publisher": "jtc10005",
     "engines": {
         "vscode": "^1.20.0"

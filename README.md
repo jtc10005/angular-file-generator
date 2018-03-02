@@ -3,9 +3,9 @@
 
 ## Features
 
-Generate angular 2+ components similar to CLI in vscode
+Generate angular 2+ files similar to CLI in vscode
 
-> ngGenerate
+> ngGenerate.component
 
 ## Repo
 [https://github.com/jtc10005/angular-file-generator](https://github.com/jtc10005/angular-file-generator)
@@ -20,9 +20,16 @@ Generate angular 2+ components similar to CLI in vscode
 ## Known Issues
 * None
 
+## Work TBD:
+*Module Generation from explorer context menu
+*Service Generation from explorer context menu
+*Auto add generated files to module
+*hot keys to generate file from editor
+
 ## Release Notes
 
  ### 0.0.1 - Inital Release
+ ### 0.0.2 - Added logo, and added readme category for work to be done
 
 -----------------------------------------------------------------------------------------------------------
 
