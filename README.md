@@ -30,7 +30,7 @@ Generate angular 2+ files similar to CLI in vscode
 
  ### 0.0.1 - Inital Release
  ### 0.0.2 - Added logo, and added readme category for work to be done
- ### 0.0.3 - Fixed style gneration, allow explorer context menu on file
+ ### 0.1.0 - Fixed style gneration, allow explorer context menu on file
 
 -----------------------------------------------------------------------------------------------------------
 
