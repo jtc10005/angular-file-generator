@@ -3,8 +3,9 @@
 
 ## Features
 
-Generate angular 2+ files similar to CLI in vscode. 
-* [https://marketplace.visualstudio.com/items?itemName=jtc10005.angular-file-generator](https://marketplace.visualstudio.com/items?itemName=jtc10005.angular-file-generator)
+### Generate angular 2+ files similar to CLI in vscode. 
+[https://marketplace.visualstudio.com/items?itemName=jtc10005.angular-file-generator](https://marketplace.visualstudio.com/items?itemName=jtc10005.angular-file-generator)
+
 From the explorer, right click on a folder or file and select "Generate Angular Component".
 A prompt will as you to enter a filename.
 Once you enter a filename, component html, ts and style files will be created at the location/level you select.
