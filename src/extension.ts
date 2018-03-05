@@ -28,7 +28,7 @@ export function activate(context: ExtensionContext) {
         }
         // User input filename
         let Name = '';
-        let fn = await Window.showInputBox({ placeHolder: 'name-component', prompt: 'Enter new module name.' });
+        let fn = await Window.showInputBox({ placeHolder: 'name-module', prompt: 'Enter new module name.' });
         if (fn) {
             // append name of object to component if it does not already have it
             // may need to break this out to a config setting
@@ -50,7 +50,6 @@ export function activate(context: ExtensionContext) {
     context.subscriptions.push(disposable);
 
     disposable = Commands.registerCommand('ngGenerate.component', async (fileUri) => {
-
 
         let path = fileUri.fsPath;
         // if path contains file name, need to remove this for the correct path
@@ -79,7 +78,7 @@ export function activate(context: ExtensionContext) {
         if (fn) {
             // append name of object to component if it does not already have it
             // may need to break this out to a config setting
-            Name = sanitize(fn.indexOf('.module') > 0 ? fn : `${fn}.module`);
+            Name = sanitize(fn.indexOf('.component') > 0 ? fn : `${fn}.component`);
             console.log('component name: ', Name);
         } else {
             // no file name enter, no continue
@@ -103,12 +102,48 @@ export function activate(context: ExtensionContext) {
             });
         }
 
-        //TODO add component to module
+        Window.showInformationMessage('Component Files generated.');
+        // //TODO add component to module
 
-        Window.showInformationMessage('Files generated.');
+        if (modulePath) {
+            addToModule(modulePath, Name, path)
+        }
     });
 
-    function addComponentToModule(modulePath: string, name: string) {
+    async function addToModule(modulePath: string, componentName: string, componentPath: string) {
+        const compName = componentName.split('.').map(x => x.charAt(0).toUpperCase() + x.substr(1).toLowerCase()).join('');
+
+        var the_arr = modulePath.split('\\');
+        the_arr.pop();
+        var modulePathNoFilename = the_arr.join('\\');
+        var cp = componentPath.replace(modulePathNoFilename, '');
+
+        if (cp == '') {
+            componentPath = `./${componentName}`
+        } else {
+            componentPath = `.${cp.replace('\\', '/')}/${componentName}`;
+        }
+
+
+        var x = await fs.readFileSync(modulePath).toString(); 
+
+        //adding the import statement
+        const importStatement = `
+import { ${compName} } from '${componentPath}';
+
+@NgModule`;
+
+        x = x.replace('@NgModule', importStatement);
+
+        //adding to the declarations of the module
+        var declarations = `
+declarations: [
+${compName},`;
+
+        x = x.replace('declarations: [', declarations);
+
+        console.log("Asynchronous read: " + x.toString());
+        fs.writeFileSync(modulePath, x)
 
     }
 
@@ -125,13 +160,12 @@ export function activate(context: ExtensionContext) {
         })
         //didn't find module
         if (modulePath == '') {
-            var the_arr = path.split('/');
+            var the_arr = path.split('\\');
             the_arr.pop();
-            modulePath = getModule(the_arr.join('/'));
+            modulePath = getModule(the_arr.join('\\'));
         }
         return modulePath;
     }
-
 
     function getStyle(path: string) {
         let files = [];
@@ -158,9 +192,9 @@ export function activate(context: ExtensionContext) {
         })
 
         if (sty == '') {
-            var the_arr = path.split('/');
+            var the_arr = path.split('\\');
             the_arr.pop();
-            sty = getStyle(the_arr.join('/'));
+            sty = getStyle(the_arr.join('\\'));
         }
         return sty;
     }
