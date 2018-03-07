@@ -1,5 +1,5 @@
 # angular-file-generator README
-![Context Menu](./images/ContextSS.png)
+![Context Menu](https://github.com/jtc10005/angular-file-generator/blob/master/images/ContextSS.PNG)
 
 ## Features
 
