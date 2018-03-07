@@ -1,5 +1,5 @@
 # angular-file-generator README
-![Imgur](https://i.imgur.com/Ho9QR0n.png)
+![Context Menu](./images/ContextSS.png)
 
 ## Features
 
