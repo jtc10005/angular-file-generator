@@ -29,7 +29,6 @@ Name entered will have the text .component added to it (if it does not already h
 
 ## Work TBD:
 *Service Generation from explorer context menu
-*Auto add generated files to module
 *hot keys to generate file from editor
 
 ## Release Notes
@@ -38,7 +37,7 @@ Name entered will have the text .component added to it (if it does not already h
  ### 0.0.2 - Added logo, and added readme category for work to be done
  ### 0.1.0 - Fixed style gneration, allow explorer context menu on file
  ### 0.1.1 - Fixed style gneration if not on the same level as the file selected
- ### 0.2.0 - Added Module Generation, filename sanitation, fixed the style creation (again...)
+ ### 0.2.0-0.2.0 - Added Module Generation, filename sanitation, fixed the style creation (again...)
 
 -----------------------------------------------------------------------------------------------------------
 
