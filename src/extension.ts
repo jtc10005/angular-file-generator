@@ -121,7 +121,7 @@ export function activate(context: ExtensionContext) {
         if (cp == '') {
             componentPath = `./${componentName}`
         } else {
-            componentPath = `.${cp.replace('\\', '/')}/${componentName}`;
+            componentPath = `.${cp.replace(/\\/g, '/')}/${componentName}`;
         }
 
 
@@ -221,7 +221,7 @@ import { Component } from '@angular/core';
 @Component({
 selector: '${selectorName}',
 templateUrl: './${fileName}.html',
-styleUrls: ['./${fileName}.${styleType}']
+styleUrls: ['./${fileName}${styleType}']
 })
 export class ${compName} {
 
