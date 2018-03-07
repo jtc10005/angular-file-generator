@@ -28,8 +28,8 @@ Name entered will have the text .component added to it (if it does not already h
 * None
 
 ## Work TBD:
-*Service Generation from explorer context menu
-*hot keys to generate file from editor
+* Service Generation from explorer context menu
+* hot keys to generate file from editor
 
 ## Release Notes
 
