@@ -1,7 +1,7 @@
 'use strict';
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { workspace as Workspace, window as Window, ExtensionContext, TextDocument, OutputChannel, WorkspaceFolder, Uri, commands as Commands } from 'vscode';
+import { workspace as Workspace, window as Window, ExtensionContext, TextDocument, OutputChannel, WorkspaceFolder, Uri, commands as Commands, QuickPickItem, QuickPickOptions } from 'vscode';
 
 import * as fs from 'fs';
 import * as sanitize from 'sanitize-filename';
@@ -75,6 +75,19 @@ export function activate(context: ExtensionContext) {
         // User input filename
         let Name = '';
         let fn = await Window.showInputBox({ placeHolder: 'name-component', prompt: 'Enter new component name.' });
+
+        let items: QuickPickItem[] = [];
+        items.push({
+            label: 'Yes',
+            description: ' - Add style file',
+        });
+        items.push({
+            label: 'No',
+            description: ' - Exclude style file'
+        });
+        let yesnoAdd = await Window.showQuickPick(items, { placeHolder: 'Add Stylesheet to generated Component' });
+        let add = yesnoAdd && yesnoAdd.label == 'Yes' ? true : false;
+
         if (fn) {
             // append name of object to component if it does not already have it
             // may need to break this out to a config setting
@@ -96,7 +109,7 @@ export function activate(context: ExtensionContext) {
         });
         //generate scss
         //TODO check setting to see if config wants to generate styles OR provide option
-        if (styleType && styleType != '') {
+        if (add && styleType && styleType != '') {
             await fs.writeFile(path + '\\' + Name + styleType, '', (err) => {
                 console.log('err', err);
             });
@@ -111,6 +124,21 @@ export function activate(context: ExtensionContext) {
     });
 
     async function addToModule(modulePath: string, componentName: string, componentPath: string) {
+        let items: QuickPickItem[] = [];
+        items.push({
+            label: 'Yes',
+            description: ' - Add to module',
+        });
+        items.push({
+            label: 'No',
+            description: ' - Do not add to module'
+        });
+        let yesnoAdd = await Window.showQuickPick(items, { placeHolder: 'Add generated Component to parent module' });
+        let add = yesnoAdd && yesnoAdd.label == 'Yes' ? true : false;
+        if (!add) {
+            return;
+        }
+
         const compName = componentName.split('.').map(x => x.charAt(0).toUpperCase() + x.substr(1).toLowerCase()).join('');
 
         var the_arr = modulePath.split('\\');
@@ -125,7 +153,7 @@ export function activate(context: ExtensionContext) {
         }
 
 
-        var x = await fs.readFileSync(modulePath).toString(); 
+        var x = await fs.readFileSync(modulePath).toString();
 
         //adding the import statement
         const importStatement = `
