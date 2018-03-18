@@ -1,6 +1,5 @@
 # angular-file-generator README
-![Context Menu](https://github.com/jtc10005/angular-file-generator/blob/master/images/ContextSS.PNG)
-
+![Context_Menu](https://i.imgur.com/yJ2pvIf.png)
 ## Features
 
 ### Generate angular 2+ files similar to CLI in vscode. 
@@ -13,6 +12,14 @@ Once you enter a filename, component html, ts and style files will be created at
 Name entered will have the text .component added to it (if it does not already have it) as per Angular style.
 
 > ngGenerate.component
+
+## Release Notes
+### 0.3.0 - Added Service Generation, Adding file to parent module, option to create style and add to parent module, Error handling
+### 0.2.0-0.2.0 - Added Module Generation, filename sanitation, fixed the style creation (again...)
+### 0.1.1 - Fixed style gneration if not on the same level as the file selected
+### 0.1.0 - Fixed style gneration, allow explorer context menu on file
+### 0.0.2 - Added logo, and added readme category for work to be done
+### 0.0.1 - Inital Release
 
 ## Repo
 [https://github.com/jtc10005/angular-file-generator](https://github.com/jtc10005/angular-file-generator)
@@ -27,17 +34,6 @@ Name entered will have the text .component added to it (if it does not already h
 ## Known Issues
 * None
 
-## Work TBD:
-* Service Generation from explorer context menu
-* hot keys to generate file from editor
-
-## Release Notes
-
- ### 0.0.1 - Inital Release
- ### 0.0.2 - Added logo, and added readme category for work to be done
- ### 0.1.0 - Fixed style gneration, allow explorer context menu on file
- ### 0.1.1 - Fixed style gneration if not on the same level as the file selected
- ### 0.2.0-0.2.0 - Added Module Generation, filename sanitation, fixed the style creation (again...)
 
 -----------------------------------------------------------------------------------------------------------
 

@@ -2,7 +2,7 @@
     "name": "angular-file-generator",
     "displayName": "angular-file-generator",
     "description": "generate angular 2+ files similar to CLI",
-    "version": "0.2.2",
+    "version": "0.3.0",
     "icon": "images/logo.png",
     "publisher": "jtc10005",
     "engines": {
@@ -18,7 +18,9 @@
     ],
     "activationEvents": [
         "onCommand:ngGenerate.component",
-        "onCommand:ngGenerate.module"
+        "onCommand:ngGenerate.module",
+        "onCommand:ngGenerate.service",
+        "onCommand:ngGenerate.add2Module"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -32,6 +34,16 @@
                 "command": "ngGenerate.component",
                 "title": "Generate Angular Component",
                 "category": "Ng Generate"
+            },
+            {
+                "command": "ngGenerate.service",
+                "title": "Generate Angular Service",
+                "category": "Ng Generate"
+            },
+            {
+                "command": "ngGenerate.add2Module",
+                "title": "Add to parent Angular Module",
+                "category": "Ng Generate"
             }
         ],
         "menus": {
@@ -41,8 +53,16 @@
                     "group": "ngGenerateGroup@1"
                 },
                 {
+                    "command": "ngGenerate.service",
+                    "group": "ngGenerateGroup@2"
+                },
+                {
+                    "command": "ngGenerate.add2Module",
+                    "group": "ngGenerateGroup@3"
+                },
+                {
                     "command": "ngGenerate.module",
-                    "group": "ngGenerateGroup@1"
+                    "group": "ngGenerateGroup@4"
                 }
             ]
         }
