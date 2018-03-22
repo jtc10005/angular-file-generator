@@ -206,7 +206,7 @@ export function activate(context: ExtensionContext) {
                 console.log('err', err);
             });
             //generate ts
-            await fs.writeFile(path + '\\' + Name + '.ts', generateTs(Name, styleType), (err) => {
+            await fs.writeFile(path + '\\' + Name + '.ts', generateTs(Name, styleType, add), (err) => {
                 console.log('err', err);
             });
             //generate scss
@@ -363,12 +363,11 @@ providers: [
      * Generate ts component file stuff
      * @param fileName Name of the component being generated
      */
-    function generateTs(fileName: String, styleType: string): string {
+    function generateTs(fileName: String, styleType: string, addStyle?:boolean): string {
         const selectorName = fileName.replace('.', '-');
         const compName = fileName.split('.').map(x => x.charAt(0).toUpperCase() + x.substr(1).toLowerCase()).join('');
-
-        return `
-import { Component, OnInit } from '@angular/core';
+if(addStyle){
+        return `import { Component, OnInit } from '@angular/core';
 
 @Component({
 selector: '${selectorName}',
@@ -384,7 +383,23 @@ ngOnInit(){
 
 }
 }`;
+    } 
+    return `import { Component, OnInit } from '@angular/core';
+
+    @Component({
+    selector: '${selectorName}',
+    templateUrl: './${fileName}.html'
+    })
+    export class ${compName} implements OnInit {
+    
+    constructor() {
     }
+    
+    ngOnInit(){
+    
+    }
+    }`;
+}
 
     /**
      * Generate ts module file stuff
